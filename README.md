@@ -1,2 +1,2 @@
 # Health-AI-A-Pesonal-Healthcare-Companion
-An AI based Health Assistant 
+An AI Based Healthcare Application System
