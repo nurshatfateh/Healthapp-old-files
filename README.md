@@ -1,4 +1,4 @@
-# Health-AI-A-Pesonal-Healthcare-Companion
+# Health AI: A Pesonal Healthcare Companion
 An AI Based Healthcare Application System
 
 Objectives: 
