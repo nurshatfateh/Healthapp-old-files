@@ -1,0 +1,7 @@
+ML: https://www.edx.org/course/machine-learning-with-python-a-practical-introduct
+Flutter: https://freecoursesite.com/the-complete-flutter-development-bootcamp-with-dart-13/
+Python: https://www.kaggle.com/learn/python
+ML: https://www.kaggle.com/learn/intro-to-machine-learning
+Numpy: https://www.youtube.com/watch?v=Rbh1rieb3zc
+Pandas: https://www.youtube.com/watch?v=RhEjmHeDNoA
+NLP: https://www.youtube.com/watch?v=R-AG4-qZs1A&list=PLeo1K3hjS3uuvuAXhYjV2lMEShq2UYSwX
