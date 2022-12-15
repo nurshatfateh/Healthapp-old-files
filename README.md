@@ -10,3 +10,5 @@ symptoms with the help of AI.
 the detected illness with the help of AI.
 4) To suggest doctors based on the detected sickness and doctors’ expertise field.
 5) To provide an emergency ambulance and contact system
+
+## Video Demo: https://youtu.be/MZunDg7j-go
