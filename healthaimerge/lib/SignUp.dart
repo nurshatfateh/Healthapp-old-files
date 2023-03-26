@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'email_conformation.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  var name;
+  var email;
+  var password;
+  var confirm;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +42,10 @@ class SignUp extends StatelessWidget {
                                   fontWeight: FontWeight.w900,
                                   fontSize: 60),
                             )),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         )
                       ],
@@ -44,8 +56,13 @@ class SignUp extends StatelessWidget {
                         children: [
                           Container(
                             padding: const EdgeInsets.all(20),
-                            child: const TextField(
-                              decoration: InputDecoration(
+                            child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  name = value;
+                                });
+                              },
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.person),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -63,8 +80,13 @@ class SignUp extends StatelessWidget {
                           ),
                           Container(
                             padding: const EdgeInsets.all(20),
-                            child: const TextField(
-                              decoration: InputDecoration(
+                            child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  email = value;
+                                });
+                              },
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.email_outlined),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -82,9 +104,14 @@ class SignUp extends StatelessWidget {
                           ),
                           Container(
                             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                            child: const TextField(
+                            child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  password = value;
+                                });
+                              },
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.password),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -101,9 +128,14 @@ class SignUp extends StatelessWidget {
                           ),
                           Container(
                             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                            child: const TextField(
+                            child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  confirm = value;
+                                });
+                              },
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.password_outlined),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -122,11 +154,24 @@ class SignUp extends StatelessWidget {
                               height: 50,
                               padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
                               child: ElevatedButton(
-                                  child: Text('Sign Up',style: TextStyle(color: Colors.white ,fontSize:20, ),),
-                                  onPressed: () {
-                                    Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => email_conformation()),
-                                    );
+                                  onPressed: () async {
+                                    try {
+                                      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                        email: email,
+                                        password: password,
+                                      );
+                                    } on FirebaseAuthException catch (e) {
+                                      if (e.code == 'weak-password') {
+                                        print('The password provided is too weak.');
+                                      } else if (e.code == 'email-already-in-use') {
+                                        print('The account already exists for that email.');
+                                      }
+                                    } catch (e) {
+                                      print(e);
+                                    }
+                                    // Navigator.push(context,
+                                    //   MaterialPageRoute(builder: (context) => email_conformation()),
+                                    // );
                                   },
                                   style: ButtonStyle(
                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -135,7 +180,8 @@ class SignUp extends StatelessWidget {
                                               side: BorderSide(color: Colors.white)
                                           )
                                       )
-                                  )
+                                  ),
+                                  child: const Text('Sign Up',style: TextStyle(color: Colors.white ,fontSize:20, ),)
                               )
                           ),
                         ],

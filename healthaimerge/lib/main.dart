@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'SignUp.dart';
@@ -133,6 +134,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  var email;
+  var password;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -153,6 +157,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             Container(
               padding: const EdgeInsets.all(20),
               child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    email=value;
+                  });
+                },
                 controller: nameController,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.person),
@@ -173,6 +182,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                },
                 obscureText: true,
                 controller: passwordController,
                 decoration: const InputDecoration(
@@ -240,9 +254,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     ),
                   ),
                   onPressed: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignUp()),
-                  );
+                  // Navigator.push(context,
+                  //   MaterialPageRoute(builder: (context) => SignUp()),
+                  // );
+                  print("hello");
 
                   },
                 )
