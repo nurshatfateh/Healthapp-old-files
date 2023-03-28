@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:healthaifinal/forgotpass.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'utils.dart';
+import 'package:healthaifinal/login.dart';
 import 'home.dart';
 import 'kit_history.dart';
 import 'profile.dart';
 import 'history.dart';
 import 'main.dart';
 
-class Navbar extends StatelessWidget {
+class Navbar extends StatefulWidget {
   const Navbar({super.key});
 
+  @override
+  State<Navbar> createState() => _NavbarState();
+}
+
+class _NavbarState extends State<Navbar> {
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -63,7 +72,7 @@ class Navbar extends StatelessWidget {
             },
           ),
           InkWell(
-            child: ListTile(
+            child: const ListTile(
               leading: Icon(Icons.book, color: Color(0xFF5FB2FF),),
               title: Text('Change Password', style: TextStyle(color: Color(0xFF5FB2FF),fontWeight: FontWeight.bold),),
               //onTap: () => 
@@ -75,15 +84,19 @@ class Navbar extends StatelessWidget {
             },
           ),
           InkWell(
-            child: ListTile(
+            child: const ListTile(
               leading: Icon(Icons.exit_to_app, color: Color(0xFF5FB2FF),),
               title: Text('Log Out', style: TextStyle(color: Color(0xFF5FB2FF),fontWeight: FontWeight.bold),),
               //onTap: () =>
             ),
             onTap: () {
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => splash()),
+              auth.signOut().then((value){
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Login()),
               );
+              }).onError((error, stackTrace){
+                Utils().toastMessage(error.toString());
+              });
             },
           ),
 
@@ -93,3 +106,12 @@ class Navbar extends StatelessWidget {
     );
   }
 }
+
+// class Navbar extends StatelessWidget {
+//   const Navbar({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+    
+//   }
+// }
